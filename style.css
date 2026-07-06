@@ -1,0 +1,1003 @@
+/* ==========================================================================
+   Design System & Reset
+   ========================================================================== */
+:root {
+  /* Color Palette */
+  --bg-dark: #0f1016;
+  --bg-card: rgba(25, 27, 38, 0.65);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(123, 97, 255, 0.5);
+  
+  --primary: #7b61ff;
+  --primary-glow: rgba(123, 97, 255, 0.3);
+  --primary-gradient: linear-gradient(135deg, #7b61ff 0%, #ab5cff 100%);
+  
+  --secondary: #00f2fe;
+  --secondary-glow: rgba(0, 242, 254, 0.25);
+  --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  
+  --accent-rose: #ff2a85;
+  --accent-rose-gradient: linear-gradient(135deg, #ff2a85 0%, #ff7300 100%);
+  
+  --text-primary: #ffffff;
+  --text-muted: #9ba1b6;
+  --text-dark: #12131a;
+  
+  --success: #00e676;
+  --error: #ff1744;
+  
+  /* Fonts */
+  --font-ko: 'Noto Sans KR', sans-serif;
+  --font-en: 'Outfit', sans-serif;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-ko);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   Background Decorations
+   ========================================================================== */
+.background-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+  animation: float 20s infinite alternate;
+}
+
+.circle-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--primary);
+  top: -100px;
+  right: -50px;
+  animation-duration: 25s;
+}
+
+.circle-2 {
+  width: 500px;
+  height: 500px;
+  background: var(--secondary);
+  bottom: -150px;
+  left: -100px;
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+.circle-3 {
+  width: 300px;
+  height: 300px;
+  background: var(--accent-rose);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  animation-duration: 20s;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(50px, 50px) scale(1.15);
+  }
+}
+
+/* ==========================================================================
+   Layout Container
+   ========================================================================== */
+.app-container {
+  width: 100%;
+  max-width: 680px;
+  padding: 40px 20px;
+  margin: auto;
+  z-index: 1;
+}
+
+.app-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.app-section.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Typography & Shared UI Components
+   ========================================================================== */
+.badge {
+  display: inline-block;
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: rgba(123, 97, 255, 0.15);
+  color: #c4b5fd;
+  border: 1px solid rgba(123, 97, 255, 0.3);
+  margin-bottom: 20px;
+}
+
+.badge-success {
+  background: rgba(0, 230, 118, 0.15);
+  color: #69f0ae;
+  border-color: rgba(0, 230, 118, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #7b61ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Cards */
+.result-card, .question-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-ko);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px 32px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: var(--text-primary);
+  box-shadow: 0 8px 24px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(123, 97, 255, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-large {
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 18px 36px;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color var(--transition-fast);
+}
+
+.btn-text:hover {
+  color: var(--text-primary);
+}
+
+.icon-arrow, .icon-back {
+  transition: transform var(--transition-fast);
+}
+
+.btn-primary:hover .icon-arrow {
+  transform: translateX(4px);
+}
+
+.btn-text:hover .icon-back {
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   1. Intro Section Styles
+   ========================================================================== */
+#section-intro {
+  text-align: center;
+}
+
+.intro-header {
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-family: var(--font-ko);
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.intro-visual {
+  margin-bottom: 50px;
+  perspective: 1000px;
+}
+
+.mbti-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 360px;
+  margin: 0 auto;
+  transform: rotateX(15deg) rotateY(-10deg);
+  transform-style: preserve-3d;
+}
+
+.mbti-box {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.01);
+  transition: all var(--transition-normal);
+  animation: pulseBox 3s infinite ease-in-out;
+}
+
+/* Box animation delay layout */
+.mbti-box:nth-child(1) { animation-delay: 0.1s; }
+.mbti-box:nth-child(2) { animation-delay: 0.4s; }
+.mbti-box:nth-child(3) { animation-delay: 0.2s; }
+.mbti-box:nth-child(4) { animation-delay: 0.6s; }
+.mbti-box:nth-child(5) { animation-delay: 0.5s; }
+.mbti-box:nth-child(6) { animation-delay: 0.2s; }
+.mbti-box:nth-child(7) { animation-delay: 0.7s; }
+.mbti-box:nth-child(8) { animation-delay: 0.3s; }
+
+@keyframes pulseBox {
+  0%, 100% {
+    transform: translateZ(0);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    transform: translateZ(15px);
+    background: rgba(123, 97, 255, 0.1);
+    border-color: rgba(123, 97, 255, 0.3);
+    color: var(--primary);
+    text-shadow: 0 0 8px var(--primary-glow);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), inset 0 0 8px rgba(123, 97, 255, 0.15);
+  }
+}
+
+.intro-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.info-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   2. Question Section Styles
+   ========================================================================== */
+.question-header {
+  margin-bottom: 30px;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary-gradient);
+  border-radius: 100px;
+  width: 0%;
+  transition: width var(--transition-normal);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.progress-step strong {
+  color: var(--text-primary);
+  font-family: var(--font-en);
+  font-size: 1rem;
+}
+
+.progress-percent {
+  font-family: var(--font-en);
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.question-card {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.question-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.question-sparkle {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  background: var(--secondary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--secondary-glow);
+  animation: pulseSparkle 2s infinite;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+.index-badge {
+  font-family: var(--font-en);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.question-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.btn-choice {
+  width: 100%;
+  text-align: left;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: var(--font-ko);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all var(--transition-normal);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.choice-marker {
+  font-family: var(--font-en);
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.choice-text {
+  word-break: keep-all;
+  flex: 1;
+}
+
+.btn-choice:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-focus);
+  background: rgba(123, 97, 255, 0.08);
+  box-shadow: 0 12px 25px rgba(123, 97, 255, 0.15);
+}
+
+.btn-choice:hover .choice-marker {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.btn-choice:active {
+  transform: translateY(-1px);
+}
+
+.question-footer {
+  text-align: center;
+}
+
+/* ==========================================================================
+   3. Loading Section Styles
+   ========================================================================== */
+#section-loading {
+  text-align: center;
+}
+
+.loading-content {
+  padding: 40px 0;
+}
+
+.loader-visual {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-top-color: var(--primary);
+  border-bottom-color: var(--secondary);
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+.pulse-circle {
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  background: rgba(123, 97, 255, 0.1);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+.brain-icon {
+  font-size: 3.5rem;
+  z-index: 2;
+  animation: floatBrain 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.4; }
+  100% { transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 30px var(--primary-glow); }
+}
+
+@keyframes floatBrain {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.loading-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.loading-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.loading-progress-container {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  width: 100%;
+  position: absolute;
+  left: -100%;
+  animation: infiniteLoader 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes infiniteLoader {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+/* ==========================================================================
+   4. Result Section Styles
+   ========================================================================== */
+#section-result {
+  max-width: 680px;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.result-type-title {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.result-mbti-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-mbti-type {
+  font-family: var(--font-en);
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #00f2fe 0%, #7b61ff 50%, #ff2a85 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(123, 97, 255, 0.2));
+  line-height: 1.1;
+}
+
+.result-mbti-nickname {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.result-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Charts Card */
+.traits-card h3, .desc-card h3, .recommendation-card h3, .chemistry-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+  padding-left: 12px;
+  color: var(--text-primary);
+}
+
+.charts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.chart-labels .active {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.chart-bar-container {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.chart-bar-progress {
+  height: 100%;
+  background: var(--primary-gradient);
+  border-radius: 100px;
+  position: absolute;
+  transition: all var(--transition-slow);
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.chart-center-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 1;
+}
+
+.chart-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-family: var(--font-en);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Specific bar layouts dynamically handled in JS:
+   We will slide left or right from center line depending on dominant type,
+   or just render EI, SN, TF, JP as custom fills.
+   Actually, EI has E on left and I on right.
+   Let's make it intuitive: if E is 70% (and I is 30%), the bar starts from left to right?
+   Or even simpler: the progress bar is split into two colors or fills from center line to left/right.
+   Let's do a beautiful gradient that fills from the left/right depending on the score!
+   Wait, if E is active, we can light up the left half, if I is active, light up the right.
+   In JS, we can set style `width: 70%` and background gradient directions.
+   Let's make a modern double-colored slider bar. The background is gray.
+   A single bar that is filled from left to right: E (left) to I (right).
+   If E is 70%, the filled bar goes from left up to 70%.
+   If I is 70%, the filled bar goes from right up to 70% (i.e. left is 30%).
+   Let's set a CSS design where:
+   - The fill covers the range.
+   - If EI is E-dominant (e.g. 70%), the fill is on the left side, starting from left. Wait, if it fills the whole left, then it is 70% wide from left.
+   - If it is I-dominant (e.g. 80%), the fill is on the right side, so it starts from right and is 80% wide.
+   To make it simple and visual, the bar will represent the percentage of the dominant type, starting from the left or right, or the bar goes from left to right where the left side is purple/gradient and the right side is another color.
+   A very nice way is: the bar has a slider indicator (dot) and a highlight.
+   If EI is 70% E, the left side represents E, the right I.
+   Let's set:
+   - Active dominant side gets highlighted color.
+   - The progress bar shows a slider thumb or a gradient block indicating the value.
+   Let's do a simple 0-100% progress fill from left to right. Left is E, right is I.
+   If E is 70% (I is 30%), the fill width is 70% starting from left.
+   If I is 70% (E is 30%), the fill width is 70% starting from right.
+   This is extremely beautiful! We will set left/right and width via JS dynamically.
+*/
+
+/* Features Card */
+.result-description-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 25px;
+  word-break: keep-all;
+}
+
+.features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.features-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+.features-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 4px;
+  color: var(--primary);
+}
+
+/* Recommendation tags */
+.rec-group {
+  margin-bottom: 20px;
+}
+
+.rec-group:last-child {
+  margin-bottom: 0;
+}
+
+.rec-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-container .tag {
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.tag-container .tag:hover {
+  background: rgba(123, 97, 255, 0.15);
+  border-color: rgba(123, 97, 255, 0.3);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+/* Chemistry Card */
+.chem-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.chem-box {
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+}
+
+.chem-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.chem-badge.best {
+  background: rgba(0, 242, 254, 0.15);
+  color: #00f2fe;
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.chem-badge.worst {
+  background: rgba(255, 42, 133, 0.15);
+  color: #ff2a85;
+  border: 1px solid rgba(255, 42, 133, 0.3);
+}
+
+.chem-type {
+  font-family: var(--font-en);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.chem-name {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Actions Section */
+.result-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+@media (min-width: 480px) {
+  .result-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Toast Message */
+.toast-message {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 19, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+}
+
+.toast-message.show {
+  bottom: 30px;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+  width: 100%;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  margin-top: 50px;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (min-width: 600px) {
+  .app-container {
+    padding: 60px 20px;
+  }
+  
+  .main-title {
+    font-size: 3rem;
+  }
+  
+  .question-text {
+    font-size: 1.5rem;
+  }
+  
+  .result-content-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .traits-card, .desc-card {
+    grid-column: span 2;
+  }
+  
+  .recommendation-card, .chemistry-card {
+    grid-column: span 1;
+  }
+  
+  .chem-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 680px) {
+  .chem-row {
+    grid-template-columns: 1fr; /* Keep stacked in card, fits beautifully */
+  }
+}
